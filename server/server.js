@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const morgan = require('morgan')
 
 //routers import
 const authRouter = require('./routes/auth');
@@ -18,6 +19,7 @@ app.use(express.static('public'));
 app.use(express.static('../client/build'));
 app.use(express.json());
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+app.use(morgan('dev'));
 
 app.use(session({
     store: store,
