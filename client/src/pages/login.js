@@ -11,9 +11,9 @@ function LoginPage() {
     const password = useSelector(selectLoginPassword)
     const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        dispatch(login({ email, password }))
+        await dispatch(login({ email, password }))
         navigate("/dashboard")
     }
 

@@ -11,7 +11,6 @@ const session = require('express-session')
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 const port = process.env.PORT || 4000
 const store = require('./models/store')
-const db = require('./models/db')
 
 const cors = require('cors');
 app.use(express.urlencoded({ extended: true }));
@@ -38,27 +37,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//routes
 app.use('/api/auth', authRouter);
-
-app.get('/api/auth/user', (req, res) => {
-    if(req.user) {
-        res.status(200).send(req.user);
-    } else {
-        res.status(401).send();
-    }
-})
-
-app.get('/example', (req, res) => {
-    db.query('SELECT * FROM users', (err, result) => {
-        if(err) {
-            console.log(err);
-            res.status(500).send();
-        } else {
-            res.status(200).send(result.rows);
-        }
-    })
-})
-
 
 //general path for getting static pages
 app.get("/*", (req, res) => {
